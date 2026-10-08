@@ -302,35 +302,35 @@ const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},se
 
 /* --------------------------------------------------------------- personas */
 const PERSONAS=[
- {id:'nova',name:'Nova',role:'Team lead',color:'#7A06D3',jelly:0.58,iris:'#C68BFF',lip:'#F20AB2',hair:'curl',screen:'plan',glyph:'check',
+ {id:'nova',name:'Nova',role:'Team lead',color:'#7A06D3',jelly:0.58,iris:'#C68BFF',hair:'curl',screen:'plan',glyph:'check',
   traits:['Calm','Decisive','Warm'],
   about:'Leads the AI team. Splits the brief into tasks, hands them out and signs off the result.',
   look:'Black hair curl on top and the lime brand dot on the chest. Steady, unhurried moves and a confident nod now and then.',
   motion:{energy:0.6,blink:3.8,sway:0.55,cps:14,quirk:'nod'},
   voice:{style:'Warm, steady, confident. Mid pitch.',voiceId:'<voice id>'},
   lines:['Morning team. Sunny takes the hooks, Delta the numbers, I sign off by four.','Good work. Let us ship it.']},
- {id:'sunny',name:'Sunny',role:'Marketing & social',color:'#F6FF4F',jelly:0.3,iris:'#46A8FF',lip:'#FF7437',hair:'spikes',screen:'social',glyph:'heart',
+ {id:'sunny',name:'Sunny',role:'Marketing & social',color:'#F6FF4F',jelly:0.3,iris:'#46A8FF',hair:'spikes',screen:'social',glyph:'heart',
   traits:['Energetic','Trend radar','Playful'],
   about:'Turns a brief into hooks, posts and campaign ideas. First to notice what people are talking about.',
   look:'Black spiky hair and sunglasses pushed up. Bounces between ideas and hops when excited.',
   motion:{energy:1.0,blink:3.0,sway:0.85,cps:17,quirk:'hop'},
   voice:{style:'Bright, quick, upbeat.',voiceId:'<voice id>'},
   lines:['Okay, three hooks for the launch. One of them is going to fly, I can feel it!','Wait, wait, I have a better one.']},
- {id:'pixel',name:'Pixel',role:'Design & creative',color:'#FF97E8',jelly:0.4,iris:'#7A06D3',lip:'#F20AB2',hair:'beret',screen:'board',glyph:'spark',
+ {id:'pixel',name:'Pixel',role:'Design & creative',color:'#FF97E8',jelly:0.4,iris:'#7A06D3',hair:'beret',screen:'board',glyph:'spark',
   traits:['Dreamy','Visual','Detail lover'],
   about:'Sketches layouts, picks visuals and keeps every asset on brand.',
   look:'Violet felt beret over black bangs. Slow floaty sway, often gazes off while picturing the layout.',
   motion:{energy:0.7,blink:4.4,sway:1.0,cps:13,quirk:'sway'},
   voice:{style:'Soft, airy, thoughtful.',voiceId:'<voice id>'},
   lines:['What if the hero visual was just one perfect purple shape?','Give me a minute, I can see it.']},
- {id:'byte',name:'Byte',role:'Development',color:'#46A8FF',jelly:0.5,iris:'#A5FF37',lip:'#5517A7',hair:'headphones',screen:'code',glyph:'code',
+ {id:'byte',name:'Byte',role:'Development',color:'#46A8FF',jelly:0.5,iris:'#A5FF37',hair:'headphones',screen:'code',glyph:'code',
   traits:['Precise','Dry humour','Calm'],
   about:'Builds the tools, integrations and dashboards. Talks in short sentences.',
   look:'Messy black fringe under headphones. Small efficient moves, quick glances, fast typing.',
   motion:{energy:0.45,blink:5.0,sway:0.3,cps:15,quirk:'glance'},
   voice:{style:'Dry, low, precise.',voiceId:'<voice id>'},
   lines:['Integration is live. Tests pass. Coffee next.','Found it. One missing comma.']},
- {id:'delta',name:'Delta',role:'Media & data',color:'#FFBD00',jelly:0.38,browY:0.03,iris:'#46A8FF',lip:'#5517A7',hair:'glasses',screen:'chart',glyph:'bars',
+ {id:'delta',name:'Delta',role:'Media & data',color:'#FFBD00',jelly:0.38,browY:0.03,iris:'#46A8FF',hair:'glasses',screen:'chart',glyph:'bars',
   traits:['Curious','Numbers first','Patient'],
   about:'Plans media, reads the numbers and explains what moved and why.',
   look:'Round glasses and a black side swoop. Tilts the head when reading data.',
@@ -421,7 +421,9 @@ const bodyMat=jellyMat('#7A06D3');
 const limbMat=bodyMat;
 // opaque skin in the body colour for eyelids (drawn after the jelly so it is never refracted)
 const skinMat=new T.MeshPhysicalMaterial({color:'#7A06D3',roughness:0.2,clearcoat:1,clearcoatRoughness:0.05,sheen:0.6,sheenColor:new T.Color('#E4D2FC'),sheenRoughness:0.4,transparent:true});
-const lipMat=new T.MeshPhysicalMaterial({color:'#F20AB2',roughness:0.3,clearcoat:1,clearcoatRoughness:0.08,sheen:0.5,sheenColor:new T.Color('#FFFFFF'),sheenRoughness:0.5,transparent:true});
+const lipMat=new T.MeshPhysicalMaterial({color:'#3a0566',roughness:0.48,clearcoat:0.25,clearcoatRoughness:0.35,specularIntensity:0.6,envMapIntensity:0.7,transparent:true});
+// lips are a darker shade of the body colour, warmer for yellow and orange bodies
+const _lh={h:0,s:0,l:0};function lipColorFor(hex,out){const c=new T.Color(hex);c.getHSL(_lh,T.SRGBColorSpace);let h=_lh.h;if(h>0.06&&h<0.2)h-=0.05;return (out||new T.Color()).setHSL(h,Math.min(1,_lh.s*0.85),_lh.l*0.44,T.SRGBColorSpace)}
 const blackPlastic=new T.MeshPhysicalMaterial({color:'#0b0a0e',roughness:0.22,metalness:0.1,clearcoat:0.8,clearcoatRoughness:0.1,transparent:true});
 const feltViolet=new T.MeshPhysicalMaterial({color:'#5517A7',roughness:0.95,sheen:1,sheenColor:new T.Color('#E4D2FC'),sheenRoughness:0.55,transparent:true});
 const limeGlow=new T.MeshPhysicalMaterial({color:'#DAEB45',emissive:new T.Color('#DAEB45'),emissiveIntensity:0.08,roughness:0.3,clearcoat:0.6,clearcoatRoughness:0.1,envMapIntensity:0.5,toneMapped:false});
@@ -430,7 +432,7 @@ const whiteHL=new T.MeshBasicMaterial({color:'#ffffff',toneMapped:false,transpar
 /* hair: Kajiya-Kay strands, black with a soft sheen */
 function hairMaterial(){
  return new T.ShaderMaterial({
-  uniforms:{uRoot:{value:new T.Color('#050407')},uTip:{value:new T.Color('#1b1622')},uSpec:{value:new T.Color('#ffffff')},uSpec2:{value:new T.Color('#C68BFF')},
+  uniforms:{uRoot:{value:new T.Color('#030303')},uTip:{value:new T.Color('#141414')},uSpec:{value:new T.Color('#ffffff')},uSpec2:{value:new T.Color('#9a9a9a')},
    uL1:{value:new T.Vector3(-2.6,4.2,3.4).normalize()},uL2:{value:new T.Vector3(3,2.2,-3.2).normalize()},uAmb:{value:0.32},uArch:{value:0},uHalf:{value:0.1}},
   vertexShader:`attribute vec3 aT;attribute vec2 aV;uniform float uArch,uHalf;
    varying vec3 vN;varying vec3 vT;varying vec3 vW;varying vec2 vV;
@@ -445,7 +447,7 @@ function hairMaterial(){
    void main(){vec3 N=normalize(vN);if(!gl_FrontFacing)N=-N;vec3 Tn=normalize(vT);vec3 V=normalize(cameraPosition-vW);
     float sd=vV.y;vec3 base=mix(uRoot,uTip,smoothstep(0.0,1.0,vV.x))*(0.75+0.5*sd);float sh=(sd-0.5)*0.25;
     vec3 col=base*uAmb+lit(normalize(uL1),1.0,N,Tn,V,base,sh)+lit(normalize(uL2),0.55,N,Tn,V,base,sh);
-    col+=uSpec2*pow(1.0-max(dot(N,V),0.0),4.0)*0.06;
+    col+=vec3(0.5)*pow(1.0-max(dot(N,V),0.0),4.0)*0.03;
     gl_FragColor=vec4(col,1.0);
     #include <tonemapping_fragment>
     #include <encodings_fragment>
@@ -1064,9 +1066,9 @@ function statusBubble(text){clearKind('status');const el=makeBubble('status','')
 
 /* ------------------------------------------------------------- persona */
 const _col=new T.Color(),_tcol=new T.Color(),_dcol=new T.Color(),HSL={h:0,s:0,l:0};
-const COLOR={from:new T.Color('#7A06D3'),to:new T.Color('#7A06D3'),lipFrom:new T.Color('#F20AB2'),lipTo:new T.Color('#F20AB2'),t:1,trFrom:0.58,trTo:0.58};
+const COLOR={from:new T.Color('#7A06D3'),to:new T.Color('#7A06D3'),lipFrom:new T.Color('#3a0566'),lipTo:new T.Color('#3a0566'),t:1,trFrom:0.58,trTo:0.58};
 function setPersona(id,quiet){const p=PERSONAS.find(x=>x.id===id)||PERSONAS[0];persona=p;
- COLOR.from.copy(bodyMat.color);COLOR.to.set(p.color);COLOR.lipFrom.copy(lipMat.color);COLOR.lipTo.set(p.lip);COLOR.trFrom=bodyMat.transmission;COLOR.trTo=p.jelly||0.58;COLOR.t=0;
+ COLOR.from.copy(bodyMat.color);COLOR.to.set(p.color);COLOR.lipFrom.copy(lipMat.color);lipColorFor(p.color,COLOR.lipTo);COLOR.trFrom=bodyMat.transmission;COLOR.trTo=p.jelly||0.58;COLOR.t=0;
  applyStyle(p.hair);
  eyeU.uLight.value.set(p.iris).multiplyScalar(0.85);eyeU.uDeep.value.set(p.iris).multiplyScalar(0.05);
  screenLight.color.set(p.screen==='code'?'#46A8FF':p.screen==='chart'?'#DAEB45':'#C68BFF');
@@ -1344,10 +1346,10 @@ const audio = await openRouter.tts.createSpeech({
 // NorrGhost.speakAudio(blobUrl, text)`;
 function renderPersonaUI(){const p=persona;$('#pName').textContent=p.name+', '+p.role;$('#pAbout').textContent=p.about;$('#pLook').textContent=p.look;
  $('#pTraits').innerHTML='';p.traits.forEach(t=>{const s=document.createElement('span');s.className='tag';s.textContent=t;$('#pTraits').appendChild(s)});
- const kv=[['Body',p.color],['Lips',p.lip],['Iris',p.iris],['Hair and props',{curl:'Black curl, lime chest dot',spikes:'Black spikes, sunglasses',beret:'Felt beret, black bangs',headphones:'Headphones, black fringe',glasses:'Round glasses, black swoop'}[p.hair]],['Screen',{plan:'Task board',social:'Social posts',board:'Design canvas',code:'Code editor',chart:'Charts'}[p.screen]],['Energy',p.motion.energy],['Blink every',p.motion.blink+' s'],['Talk speed',p.motion.cps+' letters/s']];
+ const kv=[['Body',p.color],['Lips','#'+lipColorFor(p.color).getHexString().toUpperCase()+' (darker body shade)'],['Iris',p.iris],['Hair and props',{curl:'Black curl, lime chest dot',spikes:'Black spikes, sunglasses',beret:'Felt beret, black bangs',headphones:'Headphones, black fringe',glasses:'Round glasses, black swoop'}[p.hair]],['Screen',{plan:'Task board',social:'Social posts',board:'Design canvas',code:'Code editor',chart:'Charts'}[p.screen]],['Energy',p.motion.energy],['Blink every',p.motion.blink+' s'],['Talk speed',p.motion.cps+' letters/s']];
  $('#pKv').innerHTML='';kv.forEach(([a,b])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=a;dd.textContent=b;$('#pKv').append(dt,dd)});
  $('#voiceKv').innerHTML='';[['Model','elevenlabs/eleven-turbo-v2'],['Voice id',p.voice.voiceId],['Direction',p.voice.style]].forEach(([a,b])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=a;dd.textContent=b;$('#voiceKv').append(dt,dd)});
- const spec={id:p.id,name:p.name,role:p.role,color:p.color,look:{hair:p.hair,lips:p.lip,iris:p.iris,screen:p.screen},traits:p.traits,about:p.about,motion:p.motion,
+ const spec={id:p.id,name:p.name,role:p.role,color:p.color,look:{hair:p.hair,lips:'#'+lipColorFor(p.color).getHexString().toUpperCase(),iris:p.iris,screen:p.screen},traits:p.traits,about:p.about,motion:p.motion,
   voice:{provider:'openrouter',model:'elevenlabs/eleven-turbo-v2',voice:p.voice.voiceId,direction:p.voice.style},
   system_prompt:`You are ${p.name}, the ${p.role.toLowerCase()} in NØRR3's AI team. You are ${p.traits.join(', ').toLowerCase()}. ${p.about} Call ghost_act whenever your state changes so your character reacts on screen.`};
  $('#pJson').textContent=JSON.stringify(spec,null,2);

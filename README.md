@@ -33,8 +33,8 @@ Names, voices and sample lines are placeholders. Each persona has a spec in `per
 ## What is rigged
 
 - **Eyes:** white eyeballs with a procedural iris and pupil, catchlights, upper and lower lids, lashes. Gaze moves the iris on the eyeball.
-- **Brows and hair:** strand-based black hair with a Kajiya-Kay hair shader. Brows bend, tilt and raise per side.
-- **Mouth:** thick shaped lips with a cupid's bow, individual upper and lower teeth, gums, tongue. Teeth and tongue are clipped to the opening with the stencil buffer.
+- **Brows, lashes and hair:** strand-based black hair with a Kajiya-Kay hair shader. Brows bend, tilt and raise per side.
+- **Mouth:** thick shaped lips with a cupid's bow in a darker shade of the body colour, individual upper and lower teeth, gums, tongue. Teeth and tongue are clipped to the opening with the stencil buffer.
 - **Body:** transmissive jelly with an inner core and suspended bubbles, squash and stretch, lean, twist, melt, scalloped hem that flutters, secondary wobble on springs.
 - **Hands:** rubber-hose arms with a palm, four three-joint fingers and a thumb. Curl, spread, index point and wrist roll per hand.
 - **Props:** laptop with pressable keys, glass screen, live role screen and the NØRR3 N mark on the lid. Hair accessories per persona.
