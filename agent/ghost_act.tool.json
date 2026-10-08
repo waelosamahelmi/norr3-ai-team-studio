@@ -1,0 +1,85 @@
+{
+  "name": "ghost_act",
+  "description": "Animate your on-screen NØRR3 ghost. Call it whenever your state changes: you start thinking, start a task, finish, hit an error, or want to say something.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "state": {
+        "type": "string",
+        "enum": [
+          "idle",
+          "listening",
+          "talking",
+          "working",
+          "thinking",
+          "resting"
+        ],
+        "description": "Ongoing activity. Stays until changed."
+      },
+      "emotion": {
+        "type": "string",
+        "enum": [
+          "neutral",
+          "happy",
+          "joy",
+          "sad",
+          "surprised",
+          "confused",
+          "focused",
+          "proud",
+          "embarrassed",
+          "sleepy",
+          "excited"
+        ]
+      },
+      "intensity": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "gesture": {
+        "type": "string",
+        "enum": [
+          "wave",
+          "nod",
+          "shake",
+          "shrug",
+          "celebrate",
+          "surprise",
+          "laugh",
+          "wink",
+          "idea",
+          "spin",
+          "hop",
+          "poke"
+        ],
+        "description": "One-shot reaction, plays once."
+      },
+      "say": {
+        "type": "string",
+        "description": "Speech bubble text. Lip sync follows the text or the voice audio."
+      },
+      "think": {
+        "type": "string",
+        "description": "Thought bubble text."
+      },
+      "status": {
+        "type": "string",
+        "description": "Short status pill, e.g. the task name."
+      },
+      "look": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 2,
+        "maxItems": 2,
+        "description": "Gaze x and y, -1 to 1."
+      },
+      "controls": {
+        "type": "object",
+        "description": "Raw rig values to hold, e.g. {\"blush\":0.8,\"handRPoint\":1}. Use null to release."
+      }
+    }
+  }
+}
